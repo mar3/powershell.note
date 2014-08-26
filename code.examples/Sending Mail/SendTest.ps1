@@ -7,31 +7,8 @@
 #
 #
 
-function main() {
-
-	Write-Host "### start ###"
-
-	#
-	# 接続
-	#
-
-	$client = New-Object System.Net.Mail.SmtpClient
-	$client.Host = "example.jp"
-	$client.Port = 25
-
-	#
-	# SMTP 認証の準備
-	#
-
-	$credentials = New-Object Net.NetworkCredential
-	$credentials.UserName = "user.name"
-	$credentials.password = "jkJhsyTwg;aa@S"
-	$client.Credentials = $credentials
-
-	#
-	# メッセージを組み立て
-	#
-
+function _create_message() {
+	
 	$message = New-Object System.Net.Mail.MailMessage
 	$from = New-Object System.Net.Mail.MailAddress("mail.from@example.jp", "差出人 表示部分")
 	$message.From = $from
@@ -42,14 +19,34 @@ function main() {
 	$message.BodyEncoding = [System.Text.Encoding]::UTF8
 	$message.Body = "body です..."
 	# $message.Attachments = ""
+	return $message
+}
 
-	#
-	# 送信！
-	#
+function _send($message) {
+
+	# 接続先
+	$client = New-Object System.Net.Mail.SmtpClient
+	$client.Host = "example.jp"
+	$client.Port = 25
+
+	# SMTP 認証の準備
+	$credentials = New-Object Net.NetworkCredential
+	$credentials.UserName = "user.name"
+	$credentials.password = "jkJhsyTwg;aa@S"
+	$client.Credentials = $credentials
 
 	$client.Send($message)
-	
+}
+
+function _main() {
+
+	Write-Host "### start ###"
+
+	$message = _create_message
+
+	_send($message)
+
 	Write-Host "--- end ---"
 }
 
-main
+_main
