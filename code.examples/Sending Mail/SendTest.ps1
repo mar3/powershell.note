@@ -1,4 +1,4 @@
-# coding: windows-31j
+# coding: Windows-31J
 #
 #
 # PowerShell でメール送信！
@@ -27,7 +27,7 @@ function _send($message) {
 	# 接続先
 	$client = New-Object System.Net.Mail.SmtpClient
 	$client.Host = "example.jp"
-	$client.Port = 25
+	$client.Port = 587
 
 	# SMTP 認証の準備
 	$credentials = New-Object Net.NetworkCredential
