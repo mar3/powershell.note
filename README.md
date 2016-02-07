@@ -1,1 +1,1 @@
-Contains [WIki](../../wiki) 
+examples.
